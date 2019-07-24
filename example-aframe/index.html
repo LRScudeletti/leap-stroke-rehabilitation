@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Leap Motion Stroke Rehabilitation</title>
+
+    <!-- A-Frame -->
+    <script src="js/libs/aframe-v0.9.2.js"></script>
+    <script src="js/libs/aframe-leap-hands.js"></script>
+
+    <!-- Leap Motion -->
+    <script src="js/libs/leap-0.6.4.js"></script>
+    <script src="js/libs/leap-plugins-0.1.12.js"></script>
+    <script src="js/libs/leap.rigged-hand-0.1.7.js"></script>
+    <script src="js/libs/leap.playback-0.2.1.js"></script>
+
+    <!-- Three -->
+    <script src="js/libs/three.min.js"></script>
+    <script src="js/libs/TrackballControls.js"></script>
+</head>
+
+<body>
+    <a-scene>
+        <!-- Player -->
+        <a-entity camera="near: 0.01" look-controls>
+            <a-entity leap-hand="hand: left"></a-entity>
+            <a-entity leap-hand="hand: right"></a-entity>
+        </a-entity>
+
+        <!-- Terrain -->
+        <a-grid></a-grid>
+
+        <!-- Lighting -->
+        <a-light type="ambient" color="#ccc"></a-light>
+        <a-light color="#ddf" distance="100" intensity="0.4" type="point"></a-light>
+        <a-light color="#ddf" position="3 10 -10" distance="50" intensity="0.4" type="point"></a-light>
+    </a-scene>
+
+    <!-- Leap Motion Playback Settings -->
+    <script>
+        var controller = document.querySelector('a-scene').systems.leap.controller;
+
+        controller.use('playback', {
+            recording: 'recordings/confidence-demo-quarter-res.json.lz',
+            requiredProtocolVersion: 6,
+            pauseOnHand: true,
+            loop: true
+        }).use('riggedHand');
+    </script>
+
+</body>
+
+</html>
